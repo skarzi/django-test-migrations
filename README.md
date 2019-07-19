@@ -1,4 +1,6 @@
-# django-test-migrations
+# Django Test Migrations
+
+[![Build Status](https://travis-ci.org/skarzi/django-test-migrations.svg?branch=master)](https://travis-ci.org/skarzi/django-test-migrations)
 
 Django's migrations testing utilities
 
