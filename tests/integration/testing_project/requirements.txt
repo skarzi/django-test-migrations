@@ -1,0 +1,5 @@
+-e ../
+
+Django>=2.2,<3.0
+pytest
+pytest_django
