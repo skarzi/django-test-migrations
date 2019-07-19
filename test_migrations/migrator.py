@@ -53,7 +53,7 @@ class Migrator:
         """
         self.migrate_from_state = self.migration_executor.migrate(
             targets,
-            **kwargs,
+            **kwargs
         )
         return self.migrate_from_state.apps
 
@@ -70,7 +70,7 @@ class Migrator:
         self.migration_executor.loader.build_graph()
         self.migrate_to_state = self.migration_executor.migrate(
             targets,
-            **kwargs,
+            **kwargs
         )
         return self.migrate_to_state.apps
 

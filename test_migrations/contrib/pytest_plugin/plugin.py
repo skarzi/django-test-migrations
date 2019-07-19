@@ -12,11 +12,11 @@ def pytest_load_initial_conftests(early_config):
     early_config.addinivalue_line(
         'markers',
         (
-            f"{settings.MIGRATIONS_TEST_MARKER}: Mark the test as "
+            "{marker}: Mark the test as "
             "Django's migration test. Dynamically add `transactional_db` "
             "fixture to marked item. Migration tests are runned only when "
             "`--test-migrations` pytest's CLI option passed."
-        ),
+        ).format(marker=settings.MIGRATIONS_TEST_MARKER),
     )
     # TODO: why I wrote this if statement?
     # if early_config.getoption('test_migrations', False):
@@ -38,8 +38,8 @@ def pytest_addoption(parser):
         help=(
             "Run Django's migrations tests. It does the following: "
             " ensure migrations are enabled, skip all test not marked with "
-            f"`{settings.MIGRATIONS_TEST_MARKER}` marker."
-        )
+            "`{marker}` marker."
+        ).format(marker=settings.MIGRATIONS_TEST_MARKER)
     )
 
 

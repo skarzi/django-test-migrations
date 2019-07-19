@@ -11,7 +11,7 @@ class MigrationTestRunnerMixin:
             *args: typing.Any,
             tags: typing.Optional[typing.Sequence[str]] = None,
             exclude_tags: typing.Optional[typing.Sequence[str]] = None,
-            **kwargs: typing.Any,
+            **kwargs: typing.Any
     ):
         tags = tags or list()
         if settings.MIGRATIONS_TEST_MARKER not in tags:

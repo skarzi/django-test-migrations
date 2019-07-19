@@ -42,7 +42,7 @@ class MigrationTestMixin:
         name = None
         if app_config:
             name = app_config.name
-            module_prefix = f'{self.apps_module}.'
+            module_prefix = self.apps_module + '.'
             if name.startswith(module_prefix):
                 name = name[len(module_prefix):]
         return name

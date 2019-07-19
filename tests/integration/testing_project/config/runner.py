@@ -81,7 +81,7 @@ class PytestTestRunner:
             argv.append('--exitfirst')
 
         if self.parallel:
-            argv.append(f'--numprocesses={self.parallel}')
+            argv.append('--numprocesses={}'.format(self.parallel))
 
         if self.keepdb:
             argv.append('--reuse-db')
