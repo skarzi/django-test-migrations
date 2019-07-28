@@ -4,22 +4,9 @@ Based on:
 + https://gist.github.com/asfaltboy/b3e6f9b5d95af8ba2cc46f2ba6eae5e2
 + https://www.caktusgroup.com/blog/2016/02/02/writing-unit-tests-django-migrations
 """
-import typing
-
-from django.apps.registry import Apps
 from django.core.management import call_command
-from django.db import DefaultConnectionProxy
 from django.db import connection as db_connection
-from django.db import migrations
-from django.db.backends.base.client import BaseDatabaseClient
 from django.db.migrations.executor import MigrationExecutor
-
-ConnectionType = typing.Union[DefaultConnectionProxy, BaseDatabaseClient]
-ProgressCallback = typing.Callable[
-    [str, typing.Optional[migrations.Migration], bool],
-    None,
-]
-Target = typing.Tuple[str, str]
 
 
 class Migrator:
@@ -35,11 +22,7 @@ class Migrator:
     """
     call_first_error_template = 'Call `.{method_name}()` first.'
 
-    def __init__(
-            self,
-            connection: typing.Optional[ConnectionType] = None,
-            progress_callback: typing.Optional[ProgressCallback] = None,
-    ):
+    def __init__(self, connection=None, progress_callback=None):
         connection = connection or db_connection
         self.migration_executor = MigrationExecutor(
             connection,
@@ -48,7 +31,7 @@ class Migrator:
         self.migrate_from_state = None
         self.migrate_to_state = None
 
-    def migrate_from(self, targets: typing.Iterable[Target], **kwargs) -> Apps:
+    def migrate_from(self, targets, **kwargs):
         """Migrate to the state before the migration being tested.
         """
         self.migrate_from_state = self.migration_executor.migrate(
@@ -57,7 +40,7 @@ class Migrator:
         )
         return self.migrate_from_state.apps
 
-    def migrate_to(self, targets: typing.Iterable[Target], **kwargs) -> Apps:
+    def migrate_to(self, targets, **kwargs):
         """Migrate to the state of the migration being tests.
 
         This method should be runned after `.migrate_from()`.

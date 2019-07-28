@@ -65,6 +65,7 @@ setup(
     author_email='github@skarzi.com',
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
+    package_data={'test_migrations': ['py.typed', '*.pyi']},
     install_requires=[],
     python_requires='>=3.4',
     extras_require={

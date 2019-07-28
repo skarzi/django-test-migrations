@@ -1,18 +1,10 @@
-import typing
-
 from django.test import runner
 
 from test_migrations import settings
 
 
 class MigrationTestRunnerMixin:
-    def __init__(
-            self,
-            *args: typing.Any,
-            tags: typing.Optional[typing.Sequence[str]] = None,
-            exclude_tags: typing.Optional[typing.Sequence[str]] = None,
-            **kwargs: typing.Any
-    ):
+    def __init__(self, *args, tags=None, exclude_tags=None, **kwargs):
         tags = tags or list()
         if settings.MIGRATIONS_TEST_MARKER not in tags:
             exclude_tags = set(exclude_tags or list())
