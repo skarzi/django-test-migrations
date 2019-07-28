@@ -31,7 +31,11 @@ class TestMigrator:
     def test_migrate_to_calls_reload_migrations(self, migrator, mocker):
         migrator.migrate_from_state = mocker.MagicMock()
         migrator.migrate_to(self.testing_targets)
-        migrator.migration_executor.loader.build_graph.assert_called_once()
+        # `.assert_called_once()` was added in python 3.6
+        (
+            migrator.migration_executor.loader.build_graph
+            .assert_called_once_with()
+        )
         migrator.migration_executor.migrate.assert_called_once_with(
             self.testing_targets,
         )
