@@ -37,7 +37,7 @@ class TestMigrator:
         )
         assert migrator.migration_executor.migrate_to_state is not None
 
-    def test_migrate_forward_calls_call_command_when_migrate_to_applied(
+    def test_clean_calls_call_command_when_migrate_to_applied(
             self,
             migrator,
             mocker,
@@ -46,7 +46,7 @@ class TestMigrator:
         call_command_mock = mocker.patch(
             'test_migrations.migrator.call_command',
         )
-        migrator.migrate_forward()
+        migrator.clean()
         call_command_mock.assert_called_once_with(
             'flush',
             verbosity=0,

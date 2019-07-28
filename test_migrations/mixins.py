@@ -55,7 +55,7 @@ class MigrationTestMixin:
         self.apps = self.migrator.migrate_to(self.migrate_to)
 
     def teardown_test(self):
-        self.migrator.migrate_forward()
+        self.migrator.clean()
 
     def setup_before_migration(self, apps):
         """Populate data before performing tested migration.

@@ -57,8 +57,10 @@ class Migrator:
         )
         return self.migrate_to_state.apps
 
-    def migrate_forward(self):
-        """Flush database and migrate forward all the way.
+    def clean(self):
+        """Flush database.
+
+        Should be called at the end of migration test.
         """
         # TODO: `flush` is using here, because `migrate` command call will
         # fail because of many factors, for instance some Exception might be

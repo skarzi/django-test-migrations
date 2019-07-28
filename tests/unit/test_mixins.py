@@ -99,11 +99,11 @@ class TestMigrationTestMixin:
         tuple_target = [('app', str_target), ('other_app', '0090_alter_field')]
         assert instance.process_migration_target(tuple_target) == tuple_target
 
-    def test_teardown_test_calls_migrator_migrate_forward(self, mocker):
+    def test_teardown_test_calls_migrator_clean(self, mocker):
         migration_test = MigrationTestWithBothMigrateTargets()
         migration_test.migrator = mocker.Mock()
         migration_test.teardown_test()
-        migration_test.migrator.migrate_forward.assert_called_once()
+        migration_test.migrator.clean.assert_called_once()
 
     def test_setup_test_calls_proper_migrator_methods_and_setup_before_migration(
             self,
