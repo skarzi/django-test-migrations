@@ -47,11 +47,8 @@ class TestMigrator:
             'test_migrations.migrator.call_command',
         )
         migrator.migrate_forward()
-        assert call_command_mock.call_count == 2
-        call_command_mock.assert_has_calls(
-            [
-                mocker.call('flush', verbosity=0, interactive=False),
-                mocker.call('migrate', verbosity=0),
-            ],
-            any_order=False
+        call_command_mock.assert_called_once_with(
+            'flush',
+            verbosity=0,
+            interactive=False,
         )

@@ -60,13 +60,12 @@ class Migrator:
     def migrate_forward(self):
         """Flush database and migrate forward all the way.
         """
-        # TODO: without `flush` call `migrate` command call will fail
-        # because of many factors, for instance some Exception might be raised
-        # in migration when some data are present in table.
+        # TODO: `flush` is using here, because `migrate` command call will
+        # fail because of many factors, for instance some Exception might be
+        # raised in migration when some data are present in table.
         # However it should be handled more gently, multiple db support etc,
         # refer to:
         # https://github.com/django/django/blob/master/django/test/testcases.py#L1028
         call_command('flush', verbosity=0, interactive=False)
-        call_command('migrate', verbosity=0)
         self.migrate_from_state = None
         self.migrate_to_state = None
