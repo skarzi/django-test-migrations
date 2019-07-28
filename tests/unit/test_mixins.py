@@ -78,18 +78,18 @@ class TestMigrationTestMixin:
         MigrationTestWithMigrateTo(),
         MigrationTestWithMigrateTargetEqualsToNone(),
     ])
-    def test_assert_migrate_targets_defined_raises_AssertionError(
+    def test_assert_migration_targets_defined_raises_AssertionError(
             self,
             instance,
     ):
         with pytest.raises(AssertionError):
-            instance.assert_migrate_targets_defined()
+            instance.assert_migration_targets_defined()
 
-    def test_assert_migrate_targets_defined_dont_pass_when_targets_defined(
+    def test_assert_migration_targets_defined_dont_pass_when_targets_defined(
             self,
     ):
         instance = MigrationTestWithBothMigrateTargets()
-        assert instance.assert_migrate_targets_defined() is None
+        assert instance.assert_migration_targets_defined() is None
 
     def test_process_migration_target(self):
         instance = MigrationTestWithBothMigrateTargets()
