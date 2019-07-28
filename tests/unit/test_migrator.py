@@ -41,7 +41,7 @@ class TestMigrator:
         )
         assert migrator.migration_executor.migrate_to_state is not None
 
-    def test_migrate_forward_calls_call_command_when_migrate_to_applied(
+    def test_clean_calls_call_command_when_migrate_to_applied(
             self,
             migrator,
             mocker,
@@ -50,12 +50,9 @@ class TestMigrator:
         call_command_mock = mocker.patch(
             'test_migrations.migrator.call_command',
         )
-        migrator.migrate_forward()
-        assert call_command_mock.call_count == 2
-        call_command_mock.assert_has_calls(
-            [
-                mocker.call('flush', verbosity=0, interactive=False),
-                mocker.call('migrate', verbosity=0),
-            ],
-            any_order=False
+        migrator.clean()
+        call_command_mock.assert_called_once_with(
+            'flush',
+            verbosity=0,
+            interactive=False,
         )

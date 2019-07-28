@@ -78,18 +78,18 @@ class TestMigrationTestMixin:
         MigrationTestWithMigrateTo(),
         MigrationTestWithMigrateTargetEqualsToNone(),
     ])
-    def test_assert_migrate_targets_defined_raises_AssertionError(
+    def test_assert_migration_targets_defined_raises_AssertionError(
             self,
             instance,
     ):
         with pytest.raises(AssertionError):
-            instance.assert_migrate_targets_defined()
+            instance.assert_migration_targets_defined()
 
-    def test_assert_migrate_targets_defined_dont_pass_when_targets_defined(
+    def test_assert_migration_targets_defined_dont_pass_when_targets_defined(
             self,
     ):
         instance = MigrationTestWithBothMigrateTargets()
-        assert instance.assert_migrate_targets_defined() is None
+        assert instance.assert_migration_targets_defined() is None
 
     def test_process_migration_target(self):
         instance = MigrationTestWithBothMigrateTargets()
@@ -99,12 +99,12 @@ class TestMigrationTestMixin:
         tuple_target = [('app', str_target), ('other_app', '0090_alter_field')]
         assert instance.process_migration_target(tuple_target) == tuple_target
 
-    def test_teardown_test_calls_migrator_migrate_forward(self, mocker):
+    def test_teardown_test_calls_migrator_clean(self, mocker):
         migration_test = MigrationTestWithBothMigrateTargets()
         migration_test.migrator = mocker.Mock()
         migration_test.teardown_test()
         # `.assert_called_once()` was added in python 3.6
-        migration_test.migrator.migrate_forward.assert_called_once_with()
+        migration_test.migrator.clean.assert_called_once_with()
 
     def test_setup_test_calls_proper_migrator_methods_and_setup_before_migration(
             self,

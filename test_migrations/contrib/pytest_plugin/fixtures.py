@@ -25,5 +25,5 @@ def migrator(request):
     from test_migrations.migrator import Migrator
 
     _migrator = Migrator()
-    request.addfinalizer(_migrator.migrate_forward)
+    request.addfinalizer(_migrator.clean)
     return _migrator

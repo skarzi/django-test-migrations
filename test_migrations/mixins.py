@@ -44,7 +44,7 @@ class MigrationTestMixin:
         return name
 
     def setup_test(self):
-        self.assert_migrate_targets_defined()
+        self.assert_migration_targets_defined()
         self.migrate_from = self.process_migration_target(self.migrate_from)
         self.migrate_to = self.process_migration_target(self.migrate_to)
         self.migrator = migrator.Migrator(**self.migrator_config)
@@ -55,7 +55,7 @@ class MigrationTestMixin:
         self.apps = self.migrator.migrate_to(self.migrate_to)
 
     def teardown_test(self):
-        self.migrator.migrate_forward()
+        self.migrator.clean()
 
     def setup_before_migration(self, apps):
         """Populate data before performing tested migration.
@@ -65,7 +65,7 @@ class MigrationTestMixin:
         Use `apps.get_model()` to get model class and create instances.
         """
 
-    def assert_migrate_targets_defined(self):
+    def assert_migration_targets_defined(self):
         has_migrate_from = getattr(self, 'migrate_from', None)
         has_migrate_to = getattr(self, 'migrate_to', None)
         assertion_message = self.missing_migrate_targets_error_template.format(
@@ -73,8 +73,7 @@ class MigrationTestMixin:
         )
         assert has_migrate_from and has_migrate_to, assertion_message
 
-    # TODO: rename to `migration_target`
-    def process_migration_target(self, migrate_target):
-        if isinstance(migrate_target, str):
-            return [(self.current_app_name, migrate_target)]
-        return migrate_target
+    def process_migration_target(self, migration_target):
+        if isinstance(migration_target, str):
+            return [(self.current_app_name, migration_target)]
+        return migration_target
