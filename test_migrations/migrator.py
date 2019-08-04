@@ -1,4 +1,4 @@
-"""Module with class that make testing django migrations easier.
+"""Module with class that makes testing django migrations easier.
 
 Based on:
 + https://gist.github.com/asfaltboy/b3e6f9b5d95af8ba2cc46f2ba6eae5e2
@@ -16,7 +16,7 @@ class Migrator:
     -----
     Using this class has few weak points:
     + it doesn't support factoryboy
-    + it's hard to assert exceptions occured during performing migration
+    + it's hard to assert exceptions raised while executing a migration
     + it doesn't detect and update `settings.MIGRATION_MODULES`
       for migration tests
     """
@@ -41,9 +41,9 @@ class Migrator:
         return self.migrate_from_state.apps
 
     def migrate_to(self, targets, **kwargs):
-        """Migrate to the state of the migration being tests.
+        """Migrate to the state of the migration being tested.
 
-        This method should be runned after `.migrate_from()`.
+        This method should be ran after `.migrate_from()`.
         """
         assertion_message = self.call_first_error_template.format(
             method_name='migrate_from',
@@ -60,9 +60,9 @@ class Migrator:
     def clean(self):
         """Flush database.
 
-        Should be called at the end of migration test.
+        Should be called at the end of the migration test.
         """
-        # TODO: `flush` is using here, because `migrate` command call will
+        # TODO: `flush` is used here, because `migrate` command call will
         # fail because of many factors, for instance some Exception might be
         # raised in migration when some data are present in table.
         # However it should be handled more gently, multiple db support etc,

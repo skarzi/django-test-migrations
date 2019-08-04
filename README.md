@@ -2,40 +2,39 @@
 
 [![Build Status](https://travis-ci.org/skarzi/django-test-migrations.svg?branch=master)](https://travis-ci.org/skarzi/django-test-migrations)
 
-Django's migrations testing utilities
+Django migration testing utilities
 
 These testing utilities were created after experiencing many issues during
 Django project deployments, caused by migrations.
 
 Testing migrations with just Django or pytest (even with pytests-django) is
-not easily doable.
-Django test runner create temporary test database for us, to accomplish that
-it runs all migrations before tests. This means our tests are running the
+not easily done.
+Django's test runner creates a temporary test database for us, to accomplish that
+it runs all migrations before tests. This means our tests are running on the
 latest version of the schema. It is impossible to verify behaviour/results
 of our migrations, because the tests cannot setup data or assert conditions
 before running them.
 
-This module pretend to be solution for these problems.
+This module intends to be a solution to these problems.
 
 
 ## Migration Test Lifecycle
 
-Majority of errors are catch up during performing migrations on
-staging/production environment, because of databases that aren't empty.
-This module give us possibility to go back to migrations that are before
-our target migration (this one we want to test carefully). Then we can
-setup data and/or assert some conditions and then migrate to target migration.
+The majority of migration issues are caught while performing migrations on
+staging and production environments, whose databases contain non-trivial data.
+This module gives us the ability to go back to migrations that are before
+our target migration (the one we want to test). Then we can
+setup data and/or assert some conditions before applying the tested migration.
 Finally we can validate if everything changed correctly.
-Migration test lifecycle can be expressed in this 4 points:
+The migration test lifecycle can be expressed in these 4 points:
 
-1. Going back to start migration.
+1. Go back to start migration.
 2. Setup data, assert conditions.
 3. Go to target migration.
 4. Asserts.
 
 
-## When test migration?
-
+## When to test migrations?
 It's super surprising, but not every migration needs tests! ;)
 You do not have to test simple non-data migrations like adding a new nullable
 column or adding a new table.
@@ -51,10 +50,10 @@ and columns or building new indexes.
 With this module migrations tests can be written in one of 2 ways:
 
 + as Django `TransactionTestCase` (`test_migrations.test_cases.unittest.MigrationTestCase`)
-+ as function/classes using `migrator` pytest's fixture
++ as function/classes using the`migrator` pytest fixture
 
-In following sections, you can see tests using each of above listed ways.
-Each tests is create for following migration
+In the following sections, we provide examples of each method.
+Our example migration for these will be:
 `apps.polls.migrations.0004_populate_question_difficulty_level_field`
 (sample testing project can be found in `tests/integration/` directory):
 
@@ -98,16 +97,15 @@ class Migration(migrations.Migration):
 
 ## Testing with `test_migrations.test_cases.unittest.MigrationTestCase`
 
-This module provide two test cases class bases for testing migrations.
-They have common parts of defining migration test.
+This module provides two base test case classes, which contain some useful helpers for common tasks related to migration testing.
 
-To create migration test follow above points:
+To create a migration test, you'll need to do the following:
 
 1. Set `migrate_to` attribute to migrations or migration
    name that you want to test.
    If this value is string, then it is assumed that you want test
    migration from current application where tests are stored in.
-   To set concrete, specific migrations or few migrations pass list of them,
+   To set concrete, specific migrations or multiple migrations, pass a list of them,
    for instance:
 
     ```python
@@ -121,9 +119,9 @@ To create migration test follow above points:
 3. Implement `setup_before_migration` method, this method can be used to
    populate data etc.
 
-Migrations tests are generally slow, so all tests cases that extends
+Migration tests are generally slow, so all test cases that extend
 `test_migrations.test_cases.unittest.MigrationTestCase` are tagged with
-`migration` tag and skipped when running tests, unless you explicite pass
+`migration` tag and skipped when running tests, unless you explicitly pass
 `--tag migration` to `python manage.py test` command.
 
 Notice that you can use all assert methods from Django test case.
@@ -225,12 +223,12 @@ class TestMigration0004_1(MigrationTestCase):
 ```
 
 
-## Using `migrator` fixture
+## Using the `migrator` fixture
 
 This is probably the most powerful way of testing migrations,
-however it enforce you to write many boilerplate code.
+however it forces you to write a bit of boilerplate code.
 
-All tests using `migrator` fixture are marked with `migration` marker.
+All tests using `migrator` fixture are marked with the `migration` marker.
 
 ```python
 import datetime
@@ -324,16 +322,16 @@ class TestMigration0004:
 ```
 
 
-## Running migrations tests
+## Running migration tests
 
-This module can be run with custom Django's test runner or with pytest.
+This module can be run with Django's test runner or with pytest.
 
-### Running migrations test with Django test runner
+### Running migration tests with Django test runner
 
 When only Django's testing utilities with bare `unittest` are used it's 
 necessary to set Django's `TEST_RUNNER` setting to
 `'test_migrations.runner.unittest.DiscoverRunner'`, then migrations test can
-be ran following command:
+be ran using the following command:
 
 ```bash
 python manage.py test --tag migration
@@ -341,7 +339,7 @@ python manage.py test --tag migration
 
 ### Running migrations tests with pytest
 
-To run migrations tests with pytest use command listed below:
+To run migrations tests with pytest use the `--test-migrations` switch:
 
 ```bash
 pytest --test-migrations
