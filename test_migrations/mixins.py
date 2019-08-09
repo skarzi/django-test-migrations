@@ -5,7 +5,7 @@ from . import migrator
 
 
 class MigrationTestMixin:
-    """Mixing that make django migrations testing easier.
+    """Mixin that makes django migrations testing easier.
 
     Attributes
     ----------

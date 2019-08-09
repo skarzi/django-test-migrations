@@ -12,9 +12,9 @@ def pytest_load_initial_conftests(early_config):
     early_config.addinivalue_line(
         'markers',
         (
-            "{marker}: Mark the test as "
-            "Django's migration test. Dynamically add `transactional_db` "
-            "fixture to marked item. Migration tests are runned only when "
+            "{marker}: Mark the test as a"
+            "Django migration test. Dynamically add `transactional_db` "
+            "fixture to marked item. Migration tests are run only when "
             "`--test-migrations` pytest's CLI option passed."
         ).format(marker=settings.MIGRATIONS_TEST_MARKER),
     )
@@ -36,7 +36,7 @@ def pytest_addoption(parser):
         dest='test_migrations',
         default=False,
         help=(
-            "Run Django's migrations tests. It does the following: "
+            "Run Django migration tests. This does the following: "
             " ensure migrations are enabled, skip all test not marked with "
             "`{marker}` marker."
         ).format(marker=settings.MIGRATIONS_TEST_MARKER)
@@ -52,7 +52,7 @@ def pytest_sessionstart(session):
 def pytest_collection_modifyitems(session, items):
     migration_test_skip_marker = pytest.mark.skip(
         reason=(
-            'No migration test skipped, because`--test-migration` option '
+            'Migration tests not skipped, because`--test-migration` option '
             'passed.'
         ),
     )

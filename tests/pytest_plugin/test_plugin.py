@@ -16,7 +16,7 @@ def test_dir(testdir):
     '--migrations',
     '--nomigrations',
 ])
-def test_set_nomigrations_to_False_when_runned_with_test_migrations_option(
+def test_set_nomigrations_to_False_when_run_with_test_migrations_option(
         test_dir,
         initial_nomigrations_value,
 ):
