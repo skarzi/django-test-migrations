@@ -1,2 +1,2 @@
 django-stubs~=1.4
-mypy==0.760
+mypy==0.761
