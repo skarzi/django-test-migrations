@@ -54,5 +54,11 @@ install:
 script:
   - tox
 
+after_success:
+  # Send coverage to coveralls:
+  - pip install coverage coveralls
+  - coverage combine .tests_reports/
+  - coveralls --rcfile=setup.cfg
+
 notifications:
   email: false

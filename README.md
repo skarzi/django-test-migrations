@@ -1,6 +1,7 @@
 # Django Test Migrations
 
 [![Build Status](https://travis-ci.org/skarzi/django-test-migrations.svg?branch=master)](https://travis-ci.org/skarzi/django-test-migrations)
+[![Coverage Status](https://coveralls.io/repos/github/skarzi/django-test-migrations/badge.svg)](https://coveralls.io/github/skarzi/django-test-migrations)
 
 Django migration testing utilities
 
