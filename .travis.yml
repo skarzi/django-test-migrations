@@ -5,13 +5,6 @@ dist: xenial
 matrix:
   fast_finish: true
   include:
-    # TODO: uncomment when package will be compatible with python 3.4
-    # - python: "3.4"
-    #   env: DJANGO=1.11
-    # - python: "3.4"
-    #   env: DJANGO=2.0
-    # - python: "3.4"
-
     - python: "3.5"
       env: DJANGO=1.11
     - python: "3.5"
