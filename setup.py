@@ -66,7 +66,7 @@ setup(
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     package_data={'test_migrations': ['py.typed', '*.pyi']},
-    install_requires=[],
+    install_requires=['django>=1.11'],
     python_requires='>=3.4',
     extras_require={
         'pytest': ['pytest>=4.4.0', 'pytest_django>=3.4.0'],
@@ -88,16 +88,17 @@ setup(
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
         'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
         'Framework :: Pytest',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        # TODO: make package compliant with python 3.4
-        # 'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ]
 )
