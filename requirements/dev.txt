@@ -1,0 +1,3 @@
+-r ./code_style.txt
+-r ./testing.txt
+-r ./type_checking.txt
