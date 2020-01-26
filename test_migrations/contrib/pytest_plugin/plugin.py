@@ -18,12 +18,6 @@ def pytest_load_initial_conftests(early_config):
             "`--test-migrations` pytest's CLI option passed."
         ).format(marker=constants.MIGRATIONS_TEST_MARKER),
     )
-    # TODO: why I wrote this if statement?
-    # if early_config.getoption('test_migrations', False):
-    #     markexpr = early_config.option.markexp
-    #     if markexpr:
-    #         print(markexpr)
-    #     early_config.option.markexpr = 'migration'
 
 
 def pytest_addoption(parser):
