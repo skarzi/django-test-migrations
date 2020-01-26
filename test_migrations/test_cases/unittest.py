@@ -3,11 +3,11 @@ from django.test import (
     tag,
 )
 
-from test_migrations import settings
+from test_migrations import constants
 from test_migrations.mixins import MigrationTestMixin
 
 
-@tag(settings.MIGRATIONS_TEST_MARKER)
+@tag(constants.MIGRATIONS_TEST_MARKER)
 class MigrationTestCase(MigrationTestMixin, TransactionTestCase):
     """TestCase for testing Django migrations.
 

@@ -1,0 +1,1 @@
+MIGRATIONS_TEST_MARKER = 'migration'
