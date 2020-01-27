@@ -1,6 +1,6 @@
 import pytest
 
-from test_migrations import settings
+from test_migrations import constants
 
 from .fixtures import migrator  # pylint: disable=W0611
 
@@ -16,14 +16,8 @@ def pytest_load_initial_conftests(early_config):
             "Django migration test. Dynamically add `transactional_db` "
             "fixture to marked item. Migration tests are run only when "
             "`--test-migrations` pytest's CLI option passed."
-        ).format(marker=settings.MIGRATIONS_TEST_MARKER),
+        ).format(marker=constants.MIGRATIONS_TEST_MARKER),
     )
-    # TODO: why I wrote this if statement?
-    # if early_config.getoption('test_migrations', False):
-    #     markexpr = early_config.option.markexp
-    #     if markexpr:
-    #         print(markexpr)
-    #     early_config.option.markexpr = 'migration'
 
 
 def pytest_addoption(parser):
@@ -39,7 +33,7 @@ def pytest_addoption(parser):
             "Run Django migration tests. This does the following: "
             " ensure migrations are enabled, skip all test not marked with "
             "`{marker}` marker."
-        ).format(marker=settings.MIGRATIONS_TEST_MARKER)
+        ).format(marker=constants.MIGRATIONS_TEST_MARKER)
     )
 
 
@@ -59,11 +53,11 @@ def pytest_collection_modifyitems(session, items):
     for item in items:
         # mark all tests using `migrator` fixture with `MIGRATION_TEST_MARKER`
         if 'migrator' in getattr(item, 'fixturenames', list()):
-            item.add_marker(settings.MIGRATIONS_TEST_MARKER)
+            item.add_marker(constants.MIGRATIONS_TEST_MARKER)
         # skip all no migration tests when option `--test-migrations` passed
         if (
                 session.config.getoption('test_migrations', False)
-                and not item.get_closest_marker(settings.MIGRATIONS_TEST_MARKER)
+                and not item.get_closest_marker(constants.MIGRATIONS_TEST_MARKER)
         ):
             item.add_marker(migration_test_skip_marker)
 
@@ -76,7 +70,7 @@ def _django_migration_marker(request):
     and skip tests marked with migration marker if not
     explicitly requested by passing `--test-migrations` option.
     """
-    marker = request.node.get_closest_marker(settings.MIGRATIONS_TEST_MARKER)
+    marker = request.node.get_closest_marker(constants.MIGRATIONS_TEST_MARKER)
     if marker:
         if request.config.getoption('test_migrations', False):
             request.getfixturevalue('transactional_db')

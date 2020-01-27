@@ -21,7 +21,7 @@ def migrator(request):
     ...     # get instances and perform asserts
     """
     # TODO: why it cannot be imported on the top of file when running
-    # `tox -e py37-django22-pytest_extra`?
+    # pytest's related tests on "django<2.2"?
     from test_migrations.migrator import Migrator
 
     _migrator = Migrator()
