@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/skarzi/django-test-migrations.svg?branch=master)](https://travis-ci.org/skarzi/django-test-migrations)
 [![Coverage Status](https://coveralls.io/repos/github/skarzi/django-test-migrations/badge.svg)](https://coveralls.io/github/skarzi/django-test-migrations)
 
+> This project is no longer maintained, switch to [`wemake-services/django-test-migrations`](https://github.com/wemake-services/django-test-migrations), which is in active development.
+
 Django migration testing utilities
 
 These testing utilities were created after experiencing many issues during
